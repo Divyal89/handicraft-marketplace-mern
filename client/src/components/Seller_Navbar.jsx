@@ -13,14 +13,14 @@ import { FaCartShopping, FaUserPen } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 
-const Navbar = () => {
+const Seller_Navbar = () => {
   const { selectedProduct, setSelectedProduct } = useContext(AppContext);
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [activeTab, setActiveTab] = useState("product");
   const [OpenSlider, setOpenSlider] = useState(false);
 
-  const [Sellerpage,setSellerPage] = useState(false)
+  const [openMenu, setOpenMenu] = useState(false);
 
   const toggleSlider = () => {
     setOpenSlider(!OpenSlider);
@@ -32,7 +32,7 @@ const Navbar = () => {
   };
 
   return (
-<div className="fixed bg-[#262626] w-full flex items-center z-50">
+    <div className="fixed bg-[#262626] w-full flex items-center z-50">
       {/* Logo */}
       <div>
         <img
@@ -48,10 +48,13 @@ const Navbar = () => {
                 Modes
               </div>
               <div className="mt-3 text-xl ">
-                <button className="flex items-center w-full justify-evenly cursor-pointer hover:bg-[#e6c574]">
+                <Link
+                  to="/"
+                  className="flex items-center w-full justify-evenly cursor-pointer hover:bg-[#e6c574]"
+                >
                   <FaUsers className="mr-[-14%]" />
                   Buyer Mode
-                </button>
+                </Link>
                 <br />
                 <Link
                   to="/seller_page"
@@ -76,7 +79,7 @@ const Navbar = () => {
           {/* Home */}
           <Tabs.Trigger value="product" className="relative outline-none">
             <Link
-              to="/"
+              to="/Seller_home"
               onClick={() => setSelectedProduct(!selectedProduct)}
               className="flex gap-2 items-center"
             >
@@ -99,7 +102,7 @@ const Navbar = () => {
               className="flex gap-2 items-center"
             >
               <PiPottedPlantBold />
-              Product
+              Add Product
             </Link>
 
             {activeTab === "product" && (
@@ -147,48 +150,45 @@ const Navbar = () => {
           </Tabs.Trigger>
 
           {/* Cart */}
-          <Tabs.Trigger value="cart" className="relative outline-none">
-            <Link to="/cart" className="flex gap-2 items-center">
-              <FaCartShopping />
-              Cart
-            </Link>
-
-            {activeTab === "cart" && (
-              <motion.div
-                layoutId="nav-underline"
-                className="absolute -bottom-2 left-0 h-[2px] w-full bg-[#ffeb99]"
-              />
-            )}
-          </Tabs.Trigger>
         </Tabs.List>
       </Tabs.Root>
 
       {/* User Section */}
       <div className="ml-auto mr-10 text-[#ffeb99] relative">
+        {" "}
         {user ? (
-          <div className="group cursor-pointer">
-            <div className="flex items-center gap-2">
-              <p className="text-xl">Hi,</p>
-              <span className="text-lg font-medium">{user.name}</span>
-            </div>
-
-            <div className="absolute hidden group-hover:block bg-[#2a1f1a] mt-2 rounded shadow-lg w-32">
-              <button
-                onClick={handleLogout}
-                className="w-full px-4 py-2 text-left hover:bg-[#3a2a24]"
-              >
-                Logout
-              </button>
-            </div>
+          <div className="cursor-pointer">
+            {" "}
+            <div
+              className="flex items-center gap-2"
+              onClick={() => setOpenMenu(!openMenu)}
+            >
+              {" "}
+              <p className="text-xl">Hi,</p>{" "}
+              <span className="text-lg font-medium">{user.name}</span>{" "}
+            </div>{" "}
+            {openMenu && (
+              <div className="absolute bg-[#2a1f1a] mt-2 rounded shadow-lg w-32">
+                {" "}
+                <button
+                  onClick={handleLogout}
+                  className="w-full px-4 py-2 text-left hover:bg-[#3a2a24]"
+                >
+                  {" "}
+                  Logout{" "}
+                </button>{" "}
+              </div>
+            )}{" "}
           </div>
         ) : (
-          <Link to="/login_page">
-            <FaUserPen className="text-3xl" />
+          <Link to="/Seller_login_page">
+            {" "}
+            <FaUserPen className="text-3xl" />{" "}
           </Link>
-        )}
+        )}{" "}
       </div>
     </div>
   );
 };
 
-export default Navbar;
+export default Seller_Navbar;

@@ -8,6 +8,8 @@ import AboutUs from "./components/AboutUs";
 import Cart from "./pages/Cart";
 import About from "./pages/About";
 import ContactUs from "./pages/contact_us";
+import Seller_page from "./pages/Seller_page";
+import Seller_Home from "./pages/Seller_Home";
 
 const App = () => {
   return (
@@ -19,6 +21,8 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/about_us" element={<About />} />
         <Route path="/contact_us" element={<ContactUs />} />
+        <Route path="/seller_page" element={<Seller_page />} />
+        <Route path="/Seller_home" element={<Seller_Home />} />
       </Routes>
     </div>
   );
