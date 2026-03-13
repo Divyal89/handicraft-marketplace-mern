@@ -144,7 +144,7 @@ const Seller_Navbar = () => {
             {activeTab === "contact" && (
               <motion.div
                 layoutId="nav-underline"
-                className="absolute -bottom-2 left-0 h-[2px] w-full bg-[#ffeb99]"
+                className="absolute -bottom-2 left-0 h-0.5 w-full bg-[#ffeb99]"
               />
             )}
           </Tabs.Trigger>
@@ -181,7 +181,7 @@ const Seller_Navbar = () => {
             )}{" "}
           </div>
         ) : (
-          <Link to="/Seller_login_page">
+          <Link to="/Seller_login">
             {" "}
             <FaUserPen className="text-3xl" />{" "}
           </Link>
