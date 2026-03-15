@@ -73,7 +73,7 @@ const Seller_Navbar = () => {
       <Tabs.Root
         value={activeTab}
         onValueChange={setActiveTab}
-        className="ml-[15%]"
+        className="ml-[25%]"
       >
         <Tabs.List className="relative flex gap-10 text-[#ffeb99] font-semibold">
           {/* Home */}
@@ -90,25 +90,7 @@ const Seller_Navbar = () => {
             {activeTab === "product" && (
               <motion.div
                 layoutId="nav-underline"
-                className="absolute -bottom-2 left-0 h-[2px] w-full bg-[#ffeb99]"
-              />
-            )}
-          </Tabs.Trigger>
-          {/* Product */}
-          <Tabs.Trigger value="product" className="relative outline-none">
-            <Link
-              to="/buy"
-              onClick={() => setSelectedProduct(!selectedProduct)}
-              className="flex gap-2 items-center"
-            >
-              <PiPottedPlantBold />
-              Add Product
-            </Link>
-
-            {activeTab === "product" && (
-              <motion.div
-                layoutId="nav-underline"
-                className="absolute -bottom-2 left-0 h-[2px] w-full bg-[#ffeb99]"
+                className="absolute -bottom-2 left-0 h-0.5 w-full bg-[#ffeb99]"
               />
             )}
           </Tabs.Trigger>
@@ -116,7 +98,7 @@ const Seller_Navbar = () => {
           {/* About */}
           <Tabs.Trigger value="about" className="relative outline-none">
             <Link
-              to="/about_us"
+              to="/Seller_Aboutus"
               className="flex gap-2 items-center cursor-pointer"
             >
               <IoMdContact />
@@ -126,7 +108,7 @@ const Seller_Navbar = () => {
             {activeTab === "about" && (
               <motion.div
                 layoutId="nav-underline"
-                className="absolute -bottom-2 left-0 h-[2px] w-full bg-[#ffeb99]"
+                className="absolute -bottom-2 left-0 h-0.5 w-full bg-[#ffeb99]"
               />
             )}
           </Tabs.Trigger>
@@ -134,7 +116,7 @@ const Seller_Navbar = () => {
           {/* Contact */}
           <Tabs.Trigger value="contact" className="relative outline-none">
             <Link
-              to="/contact_us"
+              to="/Seller_Contact"
               className="flex gap-2 items-center cursor-pointer"
             >
               <FaPhoneAlt />

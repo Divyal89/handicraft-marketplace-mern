@@ -10,8 +10,10 @@ import About from "./pages/About";
 import ContactUs from "./pages/contact_us";
 import Seller_page from "./pages/Seller_page";
 import Seller_Home from "./pages/Seller_Home";
-import SellerRegister from "./components/Seller_login";
 import SellerAuth from "./components/Seller_login";
+import Seller_AboutUs from "./pages/Seller_AboutUs";
+import Seller_contact from "./pages/Seller_contact";
+import Seller_Addproduct from "./pages/Seller_Addproduct";
 
 const App = () => {
   return (
@@ -26,6 +28,9 @@ const App = () => {
         <Route path="/seller_page" element={<Seller_page />} />
         <Route path="/Seller_home" element={<Seller_Home />} />
         <Route path="/Seller_login" element={<SellerAuth />} />
+        <Route path="/Seller_Aboutus" element={<Seller_AboutUs />} />
+        <Route path="/Seller_Contact" element={<Seller_contact />} />
+        <Route path="/Seller_Addproduct" element={<Seller_Addproduct />} />
       </Routes>
     </div>
   );

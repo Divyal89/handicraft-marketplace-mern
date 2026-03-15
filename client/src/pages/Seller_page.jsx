@@ -1,10 +1,13 @@
 import React from "react";
-import Seller_Navbar from "../components/seller_navbar";
+import Seller_Navbar from "../components/Seller_Navbar";
+
+import Seller_Homecontent from "../components/seller_Homecontent";
 
 const Seller_page = () => {
   return (
     <div>
       <Seller_Navbar />
+      <Seller_Homecontent />
     </div>
   );
 };

@@ -6,6 +6,43 @@ const SellerAuth = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [showPass, setShowPass] = useState(false);
 
+  //for backend to store seller detail
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    storeName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:5000/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -35,7 +72,7 @@ const SellerAuth = () => {
             : "Create your seller account to start selling"}
         </p>
 
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           {/* Register Only Fields */}
           {!isLogin && (
             <>
@@ -44,6 +81,7 @@ const SellerAuth = () => {
                 <input
                   type="text"
                   placeholder="Enter your full name"
+                  onChange={handleChange}
                   className="w-full mt-1 p-3 rounded-lg bg-[#4a3426] border border-[#5c4332]"
                 />
               </div>
@@ -53,6 +91,7 @@ const SellerAuth = () => {
                 <input
                   type="text"
                   placeholder="Enter phone number"
+                  onChange={handleChange}
                   className="w-full mt-1 p-3 rounded-lg bg-[#4a3426] border border-[#5c4332]"
                 />
               </div>
@@ -62,6 +101,7 @@ const SellerAuth = () => {
                 <input
                   type="text"
                   placeholder="Enter store name"
+                  onChange={handleChange}
                   className="w-full mt-1 p-3 rounded-lg bg-[#4a3426] border border-[#5c4332]"
                 />
               </div>
@@ -74,6 +114,7 @@ const SellerAuth = () => {
             <input
               type="email"
               placeholder="Enter your email"
+              onChange={handleChange}
               className="w-full mt-1 p-3 rounded-lg bg-[#4a3426] border border-[#5c4332]"
             />
           </div>
@@ -84,6 +125,7 @@ const SellerAuth = () => {
             <input
               type={showPass ? "text" : "password"}
               placeholder="Enter your password"
+              onChange={handleChange}
               className="w-full mt-1 p-3 rounded-lg bg-[#4a3426] border border-[#5c4332]"
             />
 
@@ -102,6 +144,7 @@ const SellerAuth = () => {
               <input
                 type="password"
                 placeholder="Confirm password"
+                onChange={handleChange}
                 className="w-full mt-1 p-3 rounded-lg bg-[#4a3426] border border-[#5c4332]"
               />
             </div>
@@ -125,7 +168,10 @@ const SellerAuth = () => {
           )}
 
           {/* Button */}
-          <button className="w-full bg-yellow-400 text-black font-semibold py-3 rounded-lg mt-2 hover:bg-yellow-500">
+          <button
+            type="submit"
+            className="w-full bg-yellow-400 text-black font-semibold py-3 rounded-lg mt-2 hover:bg-yellow-500"
+          >
             {isLogin ? "Login as Seller" : "Register as Seller"}
           </button>
 

@@ -5,6 +5,7 @@ import { IoMdAdd } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
 import { CiSettings } from "react-icons/ci";
 import { CgProfile } from "react-icons/cg";
+import { Link } from "react-router-dom";
 
 const Seller_Homecontent = () => {
   const [Dashboard, setDashboard] = useState(false);
@@ -45,7 +46,9 @@ const Seller_Homecontent = () => {
               <div className="pl-8 text-[#E6D5B8] text-xl mt-8 hover:cursor-pointer font-extrabold">
                 <div className="flex gap-2 hover:bg-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl py-2">
                   <IoMdAdd className="font-extrabold mt-1 " />{" "}
-                  <span>Add Product</span>
+                  <Link to="/Seller_Addproduct">
+                    <span>Add Product</span>
+                  </Link>
                 </div>
                 <br />
 
@@ -73,7 +76,7 @@ const Seller_Homecontent = () => {
               </div>
             </div>
           )}
-          <div className="font-bold text-7xl mt-30">Welcome, Divyal</div>
+          <div className="font-bold text-7xl mt-30">Welcome, Seller</div>
         </h1>
         <br />
 
