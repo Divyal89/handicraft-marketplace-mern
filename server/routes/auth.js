@@ -4,26 +4,56 @@ import User from "../models/User.js";
 const router = express.Router();
 
 /* ================= REGISTER ================= */
+// router.post("/register", async (req, res) => {
+//   try {
+//     const { name, email, password } = req.body;
+
+//     // 1. check if user already exists
+//     const existingUser = await User.findOne({ email });
+//     if (existingUser) {
+//       return res.status(400).json({ message: "User already exists" });
+//     }
+
+//     // 2. create new user
+//     const newUser = new User({
+//       name,
+//       email,
+//       password, // (we'll hash later)
+//     });
+
+//     await newUser.save();
+
+//     res.status(201).json({ message: "User registered successfully" });
+//   } catch (error) {
+//     res.status(500).json({ message: "Server error" });
+//   }
+// });
 router.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // 1. check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
     }
 
-    // 2. create new user
     const newUser = new User({
       name,
       email,
-      password, // (we'll hash later)
+      password,
     });
 
     await newUser.save();
 
-    res.status(201).json({ message: "User registered successfully" });
+    // ✅ SEND USER DATA BACK
+    res.status(201).json({
+      message: "User registered successfully",
+      user: {
+        id: newUser._id,
+        name: newUser.name,
+        email: newUser.email,
+      },
+    });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
@@ -108,4 +138,5 @@ router.post("/remove-from-cart", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
 export default router;

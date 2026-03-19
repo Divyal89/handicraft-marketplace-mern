@@ -6,12 +6,22 @@ import { IoCartOutline } from "react-icons/io5";
 import { CiSettings } from "react-icons/ci";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const Seller_Homecontent = () => {
   const [Dashboard, setDashboard] = useState(false);
   const toggleDashboard = () => {
     setDashboard(!Dashboard);
   };
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
 
   return (
     <div className="relative w-full h-149 overflow-hidden">
@@ -54,7 +64,7 @@ const Seller_Homecontent = () => {
 
                 <div className="flex gap-2 hover:bg-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl py-2">
                   <IoCartOutline className="font-extrabold mt-1 " />{" "}
-                  <span>Order</span>
+                  <Link to="/Seller_order">Order</Link>
                 </div>
                 <br />
 
@@ -70,7 +80,10 @@ const Seller_Homecontent = () => {
               <div className="flex text-[#C6A969] mt-5 pl-8 ">
                 <CgProfile className="mt-2 font-extrabold text-4xl" />
                 <div className="pl-4">
-                  <p className="font-extrabold text-2xl">Divyal</p>{" "}
+                  <p className="font-extrabold text-2xl">
+                    {" "}
+                    {user ? user.name : "Guest"}
+                  </p>{" "}
                   <span>seller</span>
                 </div>
               </div>

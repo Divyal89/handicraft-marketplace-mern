@@ -20,7 +20,7 @@ const Navbar = () => {
   const [activeTab, setActiveTab] = useState("product");
   const [OpenSlider, setOpenSlider] = useState(false);
 
-  const [Sellerpage,setSellerPage] = useState(false)
+  const [Sellerpage, setSellerPage] = useState(false);
 
   const toggleSlider = () => {
     setOpenSlider(!OpenSlider);
@@ -32,7 +32,7 @@ const Navbar = () => {
   };
 
   return (
-<div className="fixed bg-[#262626] w-full flex items-center z-50">
+    <div className="fixed bg-[#262626] w-full flex items-center z-50">
       {/* Logo */}
       <div>
         <img
@@ -54,7 +54,7 @@ const Navbar = () => {
                 </button>
                 <br />
                 <Link
-                  to="/seller_page"
+                  to="/Seller_home"
                   className="flex items-center w-full justify-evenly cursor-pointer hover:bg-[#e6c574]"
                 >
                   <FaUserTie className="mr-[-14%]" />
@@ -74,30 +74,23 @@ const Navbar = () => {
       >
         <Tabs.List className="relative flex gap-10 text-[#ffeb99] font-semibold">
           {/* Home */}
-          <Tabs.Trigger value="product" className="relative outline-none">
-            <Link
-              to="/"
-              onClick={() => setSelectedProduct(!selectedProduct)}
-              className="flex gap-2 items-center"
-            >
+          <Tabs.Trigger value="home" className="relative outline-none">
+            <Link to="/" className="flex gap-2 items-center">
               <PiPottedPlantBold />
               Home
             </Link>
 
-            {activeTab === "product" && (
+            {activeTab === "home" && (
               <motion.div
                 layoutId="nav-underline"
                 className="absolute -bottom-2 left-0 h-[2px] w-full bg-[#ffeb99]"
               />
             )}
           </Tabs.Trigger>
+
           {/* Product */}
           <Tabs.Trigger value="product" className="relative outline-none">
-            <Link
-              to="/buy"
-              onClick={() => setSelectedProduct(!selectedProduct)}
-              className="flex gap-2 items-center"
-            >
+            <Link to="/buy" className="flex gap-2 items-center">
               <PiPottedPlantBold />
               Product
             </Link>

@@ -60,4 +60,18 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-export default mongoose.model("User", UserSchema);
+const productSchema = new mongoose.Schema({
+  name: String,
+  category: String,
+  price: Number,
+  quantity: Number,
+  description: String,
+  notes: String,
+});
+
+export default mongoose.model(
+  "User",
+  UserSchema,
+  CartItemSchema,
+  productSchema,
+);

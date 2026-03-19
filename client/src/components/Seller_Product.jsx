@@ -1,8 +1,47 @@
-import React from "react";
+import { Upload } from "lucide-react";
+import React, { useState } from "react";
 
 const Seller_Product = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    category: "",
+    price: "",
+    quantity: "",
+    description: "",
+    notes: "",
+    tags: [],
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await fetch("http://localhost:5000/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      console.log(data);
+      alert("Product saved successfully!");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <div className="pt-18 pl-4">
+    <div className="pt-18 pl-4" onSubmit={handleSubmit}>
       <div className="min-h-screen bg-gray-100 flex justify-center p-6">
         <div className="w-full max-w-4xl bg-white shadow-lg rounded-xl p-8">
           <h1 className="text-3xl font-bold text-gray-800">Add New Product</h1>
@@ -16,6 +55,8 @@ const Seller_Product = () => {
             <label className="font-medium text-gray-700">Product Name</label>
             <input
               type="text"
+              name="name"
+              onChange={handleChange}
               placeholder="Enter product name"
               className="w-full mt-2 border rounded-lg p-3 focus:ring-2 focus:ring-yellow-400 outline-none"
             />
@@ -24,7 +65,11 @@ const Seller_Product = () => {
           {/* Category + Price */}
           <div className="grid md:grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="font-medium text-gray-700">
+              <label
+                className="font-medium text-gray-700"
+                name="category"
+                onChange={handleChange}
+              >
                 Product Category
               </label>
 
@@ -42,6 +87,8 @@ const Seller_Product = () => {
 
               <input
                 type="number"
+                name="price"
+                onChange={handleChange}
                 placeholder="$ 0.00"
                 className="w-full mt-2 border rounded-lg p-3 focus:ring-2 focus:ring-yellow-400 outline-none"
               />
@@ -50,7 +97,11 @@ const Seller_Product = () => {
 
           {/* Quantity */}
           <div className="mb-4">
-            <label className="font-medium text-gray-700">
+            <label
+              className="font-medium text-gray-700"
+              name="quantity"
+              onChange={handleChange}
+            >
               Product Quantity / Stock
             </label>
 
@@ -63,7 +114,11 @@ const Seller_Product = () => {
 
           {/* Description */}
           <div className="mb-4">
-            <label className="font-medium text-gray-700">
+            <label
+              className="font-medium text-gray-700"
+              name="description"
+              onChange={handleChange}
+            >
               Product Description
             </label>
 
@@ -76,54 +131,28 @@ const Seller_Product = () => {
 
           {/* Image Upload */}
           <div className="mb-6">
-            <label className="font-medium text-gray-700">
-              Upload Product Images
-            </label>
+            <div>
+              <label className="text-sm">Upload Identity Document</label>
 
-            <div className="mt-2 border-2 border-dashed border-gray-300 rounded-lg p-10 text-center cursor-pointer hover:border-yellow-500">
-              <div className="text-yellow-600 text-3xl mb-2">⬆</div>
+              <label className="flex items-center justify-center gap-2 mt-2 border border-dashed p-4 rounded-lg cursor-pointer ">
+                <Upload size={18} />
+                Choose file to upload
+                <input type="file" className="hidden" />
+              </label>
 
-              <p className="text-gray-600">
-                Drop your images here, or{" "}
-                <span className="text-yellow-600">browse</span>
+              <p className="text-xs text-gray-400 mt-1">
+                Accepted formats: PDF, JPG, PNG (Max 5MB)
               </p>
-
-              <p className="text-sm text-gray-400 mt-1">
-                Supports: JPG, PNG, GIF (Max 5MB)
-              </p>
-
-              <input type="file" multiple className="hidden" />
-            </div>
-          </div>
-
-          {/* Tags */}
-          <div className="mb-6">
-            <label className="font-medium text-gray-700">Product Tags</label>
-
-            <div className="flex flex-wrap gap-2 mt-3">
-              {[
-                "Handmade",
-                "Eco-friendly",
-                "Vintage",
-                "Modern",
-                "Traditional",
-                "Custom",
-                "Gift",
-                "Limited Edition",
-              ].map((tag) => (
-                <button
-                  key={tag}
-                  className="px-4 py-1 border rounded-full text-sm hover:bg-yellow-100"
-                >
-                  {tag}
-                </button>
-              ))}
             </div>
           </div>
 
           {/* Notes */}
           <div className="mb-6">
-            <label className="font-medium text-gray-700">
+            <label
+              className="font-medium text-gray-700"
+              name="notes"
+              onChange={handleChange}
+            >
               Artisan / Maker Notes
             </label>
 
@@ -140,7 +169,10 @@ const Seller_Product = () => {
               Preview
             </button>
 
-            <button className="px-5 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700">
+            <button
+              className="px-5 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700"
+              type="submit"
+            >
               Save Product
             </button>
           </div>
