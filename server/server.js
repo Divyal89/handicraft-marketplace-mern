@@ -4,6 +4,9 @@ import mongoose from "mongoose";
 import router from "./routes/auth.js";
 import Seller_Dashboard from "./routes/Seller_Dashboard.js";
 import dotenv from "dotenv";
+import productRoutes from "./routes/products.js";
+import contactRoutes from "./routes/contact.js";
+import paymentinfo from "./routes/Payment_info.js";
 
 dotenv.config();
 
@@ -16,6 +19,9 @@ app.use(express.json());
 /* ================= ROUTES ================= */
 app.use("/api", router);
 app.use("/api", Seller_Dashboard);
+app.use("/api", productRoutes);
+app.use("/api", contactRoutes);
+app.use("/api/order", paymentinfo);
 
 /* ================= DATABASE ================= */
 mongoose

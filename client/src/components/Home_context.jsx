@@ -1,6 +1,8 @@
 import React from "react";
 import img6 from "../assets/img2.jpg";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Home_context = () => {
   // Scroll-based scale for hero image
@@ -51,8 +53,11 @@ const Home_context = () => {
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 250 }}
             className="mt-12 px-12 py-4 bg-[#C6A969] text-[#3E2F26] font-bold rounded-full shadow-xl ml-[-10vh]"
+            onClick={() =>
+              toast("Please Register/login, if register/login ignore")
+            }
           >
-            SHOP NOW
+            <Link to="/buy">SHOP NOW</Link>
           </motion.button>
         </div>
 

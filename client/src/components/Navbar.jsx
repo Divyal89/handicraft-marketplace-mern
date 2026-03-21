@@ -38,27 +38,45 @@ const Navbar = () => {
         <img
           src={name}
           alt="logo"
-          className="w-[11vh] ml-6 hover:border-[#cfa258]"
           onClick={toggleSlider}
+          className="
+    w-[11vh] ml-6 
+     
+    rounded-lg 
+    cursor-pointer 
+    transition-all duration-300 ease-in-out
+    hover:border-[#cfa258] 
+    hover:shadow-[0_4px_15px_rgba(207,162,88,0.6)] 
+    active:scale-95
+  "
         />
         {OpenSlider && (
-          <div className="fixed h-full w-60 bg-[#cfa258] ">
+          <div className="fixed h-full w-60 bg-[#3E2F26]">
             <div className="mt-2">
-              <div className="pl-[30%] font-extrabold text-2xl bg-[#e6c574]">
+              <div className="text-[#C6A969] font-extrabold text-2xl ml-8 mt-4">
                 Modes
               </div>
-              <div className="mt-3 text-xl ">
-                <button className="flex items-center w-full justify-evenly cursor-pointer hover:bg-[#e6c574]">
-                  <FaUsers className="mr-[-14%]" />
+              <div className="text-[#C6A969]">
+                -------------------------------------
+              </div>
+
+              <div className="mt-3 text-xl">
+                <Link
+                  to="/"
+                  className="flex items-center w-full justify-evenly  gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8]  hover:text-[#3E2F26] rounded-2xl py-2 font-extrabold"
+                >
+                  <FaUsers />
                   Buyer Mode
-                </button>
+                </Link>
+
                 <br />
+
                 <Link
                   to="/Seller_home"
-                  className="flex items-center w-full justify-evenly cursor-pointer hover:bg-[#e6c574]"
+                  className="flex items-center w-full justify-evenly  gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8]  hover:text-[#3E2F26] rounded-2xl py-2 font-extrabold"
                 >
-                  <FaUserTie className="mr-[-14%]" />
-                  Seller Mode{" "}
+                  <FaUserTie />
+                  Seller Mode
                 </Link>
               </div>
             </div>
@@ -165,18 +183,30 @@ const Navbar = () => {
               <span className="text-lg font-medium">{user.name}</span>
             </div>
 
-            <div className="absolute hidden group-hover:block bg-[#2a1f1a] mt-2 rounded shadow-lg w-32">
-              <button
-                onClick={handleLogout}
-                className="w-full px-4 py-2 text-left hover:bg-[#3a2a24]"
+            <div className="relative group inline-block">
+              
+
+              {/* Dropdown */}
+              <div
+                className="absolute left-0 top-full w-32 bg-[#2a1f1a] rounded shadow-lg 
+                  opacity-0 invisible group-hover:opacity-100 group-hover:visible 
+                  transition-all duration-200"
               >
-                Logout
-              </button>
+                <button
+                  onClick={handleLogout}
+                  className="w-full px-4 py-2 text-left hover:bg-[#3a2a24]"
+                >
+                  Logout
+                </button>
+              </div>
             </div>
           </div>
         ) : (
           <Link to="/login_page">
-            <FaUserPen className="text-3xl" />
+            <div>
+              <FaUserPen className="text-3xl ml-4" />
+              <p>Sign Up</p>
+            </div>
           </Link>
         )}
       </div>

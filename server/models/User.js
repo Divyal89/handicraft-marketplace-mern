@@ -69,9 +69,4 @@ const productSchema = new mongoose.Schema({
   notes: String,
 });
 
-export default mongoose.model(
-  "User",
-  UserSchema,
-  CartItemSchema,
-  productSchema,
-);
+export default mongoose.model("User", UserSchema);

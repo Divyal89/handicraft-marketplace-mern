@@ -67,11 +67,6 @@ const Seller_Homecontent = () => {
                   <Link to="/Seller_order">Order</Link>
                 </div>
                 <br />
-
-                <div className="flex gap-2 hover:bg-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl py-2">
-                  <CiSettings className="font-extrabold mt-1" />{" "}
-                  <span>Setting</span>
-                </div>
               </div>
               <div className="mt-20">
                 -------------------------------------------

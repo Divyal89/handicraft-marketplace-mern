@@ -16,9 +16,17 @@ import Seller_contact from "./pages/Seller_contact";
 import Seller_Addproduct from "./pages/Seller_Addproduct";
 import Seller_Order from "./pages/Seller_order";
 
+// ✅ STEP 2: Import Toastify
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import CheckoutForm from "./pages/Seller_Payment";
+
 const App = () => {
   return (
     <div>
+      {/* ✅ STEP 3: Add ToastContainer ONCE here */}
+      <ToastContainer position="bottom-right" autoClose={3000} />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/buy" element={<Buy />} />
@@ -33,6 +41,7 @@ const App = () => {
         <Route path="/Seller_Contact" element={<Seller_contact />} />
         <Route path="/Seller_Addproduct" element={<Seller_Addproduct />} />
         <Route path="/Seller_order" element={<Seller_Order />} />
+        <Route path="/Seller_payment" element={<CheckoutForm />} />
       </Routes>
     </div>
   );

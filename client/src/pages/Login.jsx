@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import login_bg from "../assets/login_bg.jpg";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -26,8 +27,9 @@ const Login = () => {
       localStorage.setItem("user", JSON.stringify(data.user));
       localStorage.setItem("userId", data.user.id);
       navigate("/");
+      toast.success("Login Successful ✅");
     } else {
-      alert(data.message);
+      toast.error(data.message);
     }
   };
 
@@ -44,13 +46,13 @@ const Login = () => {
     const data = await res.json();
 
     if (res.ok) {
-      alert("Registration successful! Please login.");
+      toast.success("Registration successful! Please login 🎉");
       setIsLogin(true);
       setName("");
       setEmail("");
       setPassword("");
     } else {
-      alert(data.message);
+      toast.error(data.message);
     }
   };
   return (
