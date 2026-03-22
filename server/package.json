@@ -9,6 +9,7 @@
     "formdata": "^0.10.4",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.1.5",
+    "razorpay": "^2.9.6",
     "react-toastify": "^11.0.5"
   },
   "name": "server",

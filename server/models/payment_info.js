@@ -21,26 +21,6 @@ const paymentinfoSchema = new mongoose.Schema(
         quantity: Number,
       },
     ],
-
-    totalAmount: {
-      type: Number,
-      required: true,
-    },
-
-    // 💳 Payment Info
-    paymentMethod: {
-      type: String,
-      enum: ["COD", "ONLINE"],
-      required: true,
-    },
-
-    paymentStatus: {
-      type: String,
-      enum: ["PENDING", "SUCCESS", "FAILED"],
-      default: "PENDING",
-    },
-
-    transactionId: String,
   },
   { timestamps: true },
 );

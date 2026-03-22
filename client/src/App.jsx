@@ -14,12 +14,13 @@ import SellerAuth from "./components/Seller_login";
 import Seller_AboutUs from "./pages/Seller_AboutUs";
 import Seller_contact from "./pages/Seller_contact";
 import Seller_Addproduct from "./pages/Seller_Addproduct";
-import Seller_Order from "./pages/Seller_order";
+import Seller_Order from "./pages/Seller_Order";
 
 // ✅ STEP 2: Import Toastify
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CheckoutForm from "./pages/Seller_Payment";
+import PaymentPage from "./pages/Payment_Page";
 
 const App = () => {
   return (
@@ -42,6 +43,7 @@ const App = () => {
         <Route path="/Seller_Addproduct" element={<Seller_Addproduct />} />
         <Route path="/Seller_order" element={<Seller_Order />} />
         <Route path="/Seller_payment" element={<CheckoutForm />} />
+        <Route path="/Payment" element={<PaymentPage />} />
       </Routes>
     </div>
   );

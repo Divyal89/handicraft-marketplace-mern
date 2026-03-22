@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import productRoutes from "./routes/products.js";
 import contactRoutes from "./routes/contact.js";
 import paymentinfo from "./routes/Payment_info.js";
+import paymentRoutes from "./routes/Paymentcharge.js";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use("/api", Seller_Dashboard);
 app.use("/api", productRoutes);
 app.use("/api", contactRoutes);
 app.use("/api/order", paymentinfo);
+app.use("/api/payment", paymentRoutes);
 
 /* ================= DATABASE ================= */
 mongoose

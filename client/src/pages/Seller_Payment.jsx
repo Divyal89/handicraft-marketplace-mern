@@ -7,17 +7,19 @@ import { BsCash } from "react-icons/bs";
 import { color } from "framer-motion";
 import axios from "axios";
 import { AppContext } from "../../context/AppContext";
+import { Link } from "react-router-dom";
 
 const CheckoutPage = () => {
   const { cart } = useContext(AppContext);
   const [payment, setPayment] = useState("cod");
 
-  const totalPrice = cart.reduce((total, item) => {
-    const price = Number(item.price.replace(/[^0-9]/g, "")) || 0;
-    const qty = Number(item.qty) || 1;
+  const totalPrice =
+    cart.reduce((total, item) => {
+      const price = Number(item.price.replace(/[^0-9]/g, "")) || 0;
+      const qty = Number(item.qty) || 1;
 
-    return total + price * qty;
-  }, 0);
+      return total + price * qty;
+    }, 0) + 50;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -42,19 +44,6 @@ const CheckoutPage = () => {
   const handleSubmit = async () => {
     const orderData = {
       ...formData,
-
-      products: [
-        {
-          productId: "64abc123xyz",
-          quantity: 1,
-        },
-      ],
-
-      totalAmount: 8997,
-
-      // 🔥 COD ONLY
-      paymentMethod: "COD",
-      paymentStatus: "PENDING",
     };
 
     try {
@@ -180,42 +169,6 @@ const CheckoutPage = () => {
           </div>
         </div>
 
-        {/* PAYMENT */}
-        <div className="bg-[#eee6df] p-6 rounded-xl border">
-          <h2 className="text-xl font-serif text-[#7a4b2f]">Payment Method</h2>
-
-          <div className="grid md:grid-cols-2 gap-4 mt-4">
-            <div
-              onClick={() => setPayment("upi")}
-              className={`p-4 border rounded-lg cursor-pointer ${
-                payment === "upi" ? "border-[#b57a4b] bg-[#fff7f2]" : ""
-              }`}
-            >
-              <h3 className="">UPI</h3>
-              <p className="text-sm text-gray-500">
-                Google Pay, PhonePe, Paytm
-              </p>
-            </div>
-
-            <div
-              onClick={() => setPayment("cod")}
-              className={`p-4 border rounded-lg cursor-pointer ${
-                payment === "cod" ? "border-[#b57a4b] bg-[#fff7f2]" : ""
-              }`}
-            >
-              <div className="flex justify-between">
-                <h3 className="flex items-center gap-2">
-                  <BsCash /> Cash on Delivery
-                </h3>
-                <span className="text-xs bg-[#b57a4b] text-white px-2 rounded">
-                  Popular
-                </span>
-              </div>
-              <p className="text-sm text-gray-500">Pay when you receive</p>
-            </div>
-          </div>
-        </div>
-
         {/* FEATURES */}
         <div className="bg-[#eee6df] p-8 rounded-xl grid md:grid-cols-3 gap-6 text-center">
           <div>
@@ -285,6 +238,11 @@ const CheckoutPage = () => {
               <span className="font-bold text-xl ">Shipping Fee</span>
               <span className="text-green-600">Free</span>
             </div>
+
+            <div className="flex justify-between">
+              <span className="font-bold text-xl ">Delivery charges</span>
+              <span className="text-[#b57a4b]">₹50</span>
+            </div>
           </div>
 
           {/* Total */}
@@ -299,13 +257,16 @@ const CheckoutPage = () => {
           <button className="p-4 border-black rounded-lg text-2xl font-bold bg-[#b57a4b] text-white w-45  hover:bg-[#b57a4b] hover:text-white hover:shadow-md hover:scale-[1.02]  hover:cursor-pointer active:scale-95 transition-all duration-200">
             Go To Cart
           </button>
-          <button
-            className="p-4 border-black rounded-lg text-2xl font-bold bg-[#b57a4b] text-white w-45 ml-[62%] hover:bg-[#b57a4b] hover:text-white hover:shadow-md hover:scale-[1.02]  hover:cursor-pointer active:scale-95 transition-all duration-200"
-            onClick={handleSubmit}
-          >
-            {" "}
-            Place Order
-          </button>
+          ,
+          <Link to="/Payment">
+            <button
+              className="p-4 border-black rounded-lg text-2xl font-bold bg-[#b57a4b] text-white w-45 ml-[62%] hover:bg-[#b57a4b] hover:text-white hover:shadow-md hover:scale-[1.02]  hover:cursor-pointer active:scale-95 transition-all duration-200"
+              onClick={handleSubmit}
+            >
+              {" "}
+              Payment
+            </button>
+          </Link>
         </div>
       </div>
     </div>
