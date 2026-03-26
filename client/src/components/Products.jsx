@@ -62,6 +62,10 @@ const Products = ({ product }) => {
       />
 
       <div className="p-3">
+        <span className="text-xs text-gray-400 italic">
+          by {product.manufacturer}
+        </span>
+
         <h2 className="text-lg font-semibold">{product.name}</h2>
         <p className="text-sm text-gray-500">{product.sub_category}</p>
         <p className="text-green-600 font-bold mt-1">{product.price}</p>

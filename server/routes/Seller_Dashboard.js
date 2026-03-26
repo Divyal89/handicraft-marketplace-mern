@@ -1,6 +1,6 @@
 import express from "express";
 import Seller_Product from "../models/Seller_Product.js";
-import Seller_Order from "../models/Seller_Order.js";
+import Payment from "../models/Payment.js"; // ✅ CHANGE HERE
 
 const router = express.Router();
 
@@ -8,22 +8,35 @@ router.get("/dashboard/:sellerId", async (req, res) => {
   try {
     const { sellerId } = req.params;
 
-    // 1. Total Products
+    // ✅ 1. Total Products
     const totalProducts = await Seller_Product.countDocuments({ sellerId });
 
-    // 2. Total Orders
-    const totalOrders = await Seller_Order.countDocuments({ sellerId });
-
-    // 3. Revenue (sum of all orders)
-    const orders = await Seller_Order.find({ sellerId });
-
-    const revenue = orders.reduce((acc, item) => acc + item.totalAmount, 0);
-
-    // 4. Pending Orders
-    const pendingOrders = await Seller_Order.countDocuments({
-      sellerId,
-      status: "pending",
+    // ✅ 2. Get orders from Payment (IMPORTANT)
+    const orders = await Payment.find({
+      "items.sellerId": sellerId, // 🔥 KEY FIX
     });
+
+    // ✅ 3. Total Orders
+    const totalOrders = orders.length;
+
+    // ✅ 4. Revenue (only seller items)
+    const revenue = orders.reduce((total, order) => {
+      const sellerItems = order.items.filter(
+        (item) => item.sellerId === sellerId,
+      );
+
+      const sum = sellerItems.reduce(
+        (acc, item) => acc + item.price * item.qty,
+        0,
+      );
+
+      return total + sum;
+    }, 0);
+
+    // ✅ 5. Pending Orders
+    const pendingOrders = orders.filter(
+      (order) => order.status === "Pending",
+    ).length;
 
     res.json({
       totalProducts,
@@ -32,6 +45,7 @@ router.get("/dashboard/:sellerId", async (req, res) => {
       pendingOrders,
     });
   } catch (err) {
+    console.log("DASHBOARD ERROR:", err);
     res.status(500).json({ message: "Error fetching dashboard" });
   }
 });

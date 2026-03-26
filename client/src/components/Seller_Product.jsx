@@ -177,14 +177,14 @@ const Seller_Product = () => {
           {/* Notes */}
           <div className="mb-6">
             <label className="font-medium text-gray-700">
-              Artisan / Maker Notes
+              Manufacturer Name
             </label>
 
             <textarea
               name="notes"
               value={formData.notes}
               onChange={handleChange}
-              rows="3"
+              rows="1"
               placeholder="Share the story behind this craft..."
               className="w-full mt-2 border rounded-lg p-3 focus:ring-2 focus:ring-yellow-400 outline-none"
             ></textarea>

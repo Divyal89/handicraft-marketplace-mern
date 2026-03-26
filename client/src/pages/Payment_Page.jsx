@@ -5,115 +5,164 @@ import { AppContext } from "../../context/AppContext";
 const PaymentPage = () => {
   const [paymentMethod, setPaymentMethod] = useState("");
 
-  const { cart } = useContext(AppContext);
+  const { cart, setCart } = useContext(AppContext);
+
+  // ✅ Get logged-in user
+  const userId = localStorage.getItem("userId");
+
+  // ✅ Calculate total
+  const totalPrice =
+    cart.reduce((total, item) => {
+      const price = Number(item.price.toString().replace(/[^0-9]/g, "")) || 0;
+      const qty = Number(item.qty) || 1;
+      return total + price * qty;
+    }, 0) + 50;
 
   const handlePlaceOrder = async () => {
     try {
+      if (!userId) {
+        alert("Please login first ❌");
+        return;
+      }
+
+      // ✅ ONLY CHANGE: manufacturer added
       const formattedCart = cart.map((item) => ({
         id: item.id,
-        price: Number(item.price.replace(/[^0-9]/g, "")),
+        name: item.name, // 🔥 ADD THIS (VERY IMPORTANT)
+        price: Number(item.price.toString().replace(/[^0-9]/g, "")),
         qty: Number(item.qty) || 1,
+        manufacturer: item.manufacturer || "CraftHand Studio", // 🔥 fallback
+        sellerId: item.sellerId,
       }));
 
-      const res = await fetch("http://localhost:5000/api/payment", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          items: formattedCart,
-          totalAmount: totalPrice,
-          paymentMethod,
-        }),
-      });
+      const totalAmount = totalPrice;
 
-      const data = await res.json();
+      // ================= COD =================
+      if (paymentMethod === "cod") {
+        const res = await fetch("http://localhost:5000/api/payment", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            items: formattedCart,
+            totalAmount,
+            paymentMethod,
+            userId,
+          }),
+        });
 
-      if (data.success) {
-        alert("Order placed successfully ✅");
-        setCart([]); // 🔥 THIS CLEARS CART
+        const data = await res.json();
 
-        // ✅ clear cart (important)
-        // you must have setCart in context
-        // setCart([]);
+        if (data.success) {
+          alert("Order placed (COD) ✅");
+          setCart([]);
+        }
 
-        // ✅ redirect (optional)
-        // navigate("/success");
-      } else {
-        alert(data.message || "Something went wrong ❌");
+        return;
       }
-    } catch (error) {
-      console.error(error);
-      alert("Server error ❌");
+
+      // ================= ONLINE PAYMENT =================
+
+      const res = await fetch(
+        "http://localhost:5000/api/payment/create-order",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ totalAmount }),
+        },
+      );
+
+      const order = await res.json();
+
+      const options = {
+        key: "rzp_test_xxxxxxxx",
+        amount: order.amount,
+        currency: "INR",
+        name: "CraftHand",
+        description: "Order Payment",
+        order_id: order.id,
+
+        handler: async function (response) {
+          await fetch("http://localhost:5000/api/payment", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              items: formattedCart,
+              totalAmount,
+              paymentMethod,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              userId,
+            }),
+          });
+
+          alert("Payment Successful ✅");
+          setCart([]);
+        },
+
+        theme: {
+          color: "#b57a4b",
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (err) {
+      console.log(err);
+      alert("Payment failed ❌");
     }
   };
-
-  const totalPrice =
-    cart.reduce((total, item) => {
-      const price = Number(item.price.replace(/[^0-9]/g, "")) || 0;
-      const qty = Number(item.qty) || 1;
-
-      return total + price * qty;
-    }, 0) + 50;
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center items-start py-6">
       <div className="w-full max-w-md bg-white rounded-xl shadow-md p-4">
-        {/* Header */}
         <div className="flex items-center gap-3 mb-4">
           <ArrowLeft className="cursor-pointer" />
           <h1 className="text-lg font-semibold">Payment Method</h1>
         </div>
 
-        {/* Order Summary */}
         <div className="bg-gray-50 rounded-xl p-4 shadow-sm mb-5">
           <h2 className="text-lg font-semibold mb-3">Order Summary</h2>
 
           <div className="mt-5 space-y-2 text-sm">
-            <div className="flex justify-between">
-              <span className="font-bold text-xl ">Subtotal</span>
-              <div className="space-y-4">
-                {/* Item */}
-                {cart.map((item) => (
-                  <div key={item.id}>
-                    <div className="flex gap-5">
-                      <div className="">
-                        <p className="text-xl text-[#b57a4b] font-bold">
-                          {item.price}
-                        </p>
-                        <p className="text-gray-500">Qty: {item.qty}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+            {cart.map((item) => (
+              <div key={item.id} className="flex justify-between">
+                <span>
+                  ₹{item.price} × {item.qty}
+                </span>
+                <span>
+                  ₹
+                  {(
+                    Number(item.price.toString().replace(/[^0-9]/g, "")) *
+                    item.qty
+                  ).toLocaleString("en-IN")}
+                </span>
               </div>
-            </div>
+            ))}
 
             <div className="flex justify-between">
-              <span className="font-bold text-xl ">Shipping Fee</span>
-              <span className="text-green-600">Free</span>
+              <span>Delivery Charges</span>
+              <span>₹50</span>
             </div>
           </div>
 
-          <div className="flex justify-between text-gray-600 mb-1">
-            <span>Delivery Charges</span>
-            <span>₹50.00</span>
-          </div>
+          <hr className="my-3" />
 
-          <hr className="mb-3" />
-
-          <div className="mt-8 flex justify-between font-semibold text-lg">
+          <div className="flex justify-between font-semibold text-lg">
             <span>Total Amount</span>
-            <span className="text-[#b57a4b] text-xl  font-bold">
+            <span className="text-[#b57a4b]">
               ₹{totalPrice.toLocaleString("en-IN")}
             </span>
           </div>
         </div>
 
-        {/* Payment Methods */}
         <h2 className="text-md font-semibold mb-3">Select Payment Method</h2>
 
-        {/* COD */}
         <div
           onClick={() => setPaymentMethod("cod")}
           className={`flex items-center justify-between p-4 rounded-xl border mb-3 cursor-pointer ${
@@ -135,7 +184,6 @@ const PaymentPage = () => {
           <input type="radio" checked={paymentMethod === "cod"} readOnly />
         </div>
 
-        {/* UPI */}
         <div
           onClick={() => setPaymentMethod("upi")}
           className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer ${
@@ -157,13 +205,6 @@ const PaymentPage = () => {
           <input type="radio" checked={paymentMethod === "upi"} readOnly />
         </div>
 
-        {/* Security */}
-        <div className="flex items-center justify-center gap-2 text-green-600 text-sm mt-4">
-          <span>🛡️</span>
-          <p>100% Secure Payment</p>
-        </div>
-
-        {/* Button */}
         <button
           onClick={handlePlaceOrder}
           disabled={!paymentMethod}

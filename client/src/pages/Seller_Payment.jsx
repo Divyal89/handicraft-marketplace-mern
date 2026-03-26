@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 
 const CheckoutPage = () => {
   const { cart } = useContext(AppContext);
-  const [payment, setPayment] = useState("cod");
 
   const totalPrice =
     cart.reduce((total, item) => {
@@ -204,6 +203,9 @@ const CheckoutPage = () => {
                   <div>
                     <h3 className="text-2xl font-semibold">{item.name}</h3>
                     <p className="text-gray-500">Qty: {item.qty}</p>
+                    <span className="text-xs text-gray-400 italic">
+                      by {item.manufacturer}
+                    </span>
                     <p className="text-xl text-[#b57a4b] font-bold">
                       {item.price}
                     </p>

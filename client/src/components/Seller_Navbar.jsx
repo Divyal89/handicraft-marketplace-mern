@@ -214,7 +214,7 @@ const Seller_Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
-    window.location.href = "/login_page";
+    window.location.href = "/Seller_login";
   };
 
   return (

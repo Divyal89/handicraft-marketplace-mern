@@ -27,6 +27,8 @@ const ProductArray = [
     image: imgw1,
     category: "Wooden",
     sub_category: "Hand-carved-showpieces",
+    manufacturer: "CraftHand Studio",
+    sellerId: "69c4a5285363873d07216b43",
   },
   {
     id: 2,
@@ -35,6 +37,7 @@ const ProductArray = [
     image: imgw2,
     category: "Wooden",
     sub_category: "Hand-carved-showpieces",
+    manufacturer: "Hand Art",
   },
   {
     id: 3,

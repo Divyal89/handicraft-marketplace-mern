@@ -66,19 +66,20 @@ export const AppProvider = ({ children }) => {
   const userId = localStorage.getItem("userId");
 
   // ADD TO CART
-  const addToCart = async (product) => {
-    const res = await fetch("http://localhost:5000/api/add-to-cart", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId, product }),
+  const addToCart = (product) => {
+    setCart((prevCart) => {
+      const exists = prevCart.find((item) => item.id === product.id);
+
+      if (exists) {
+        return prevCart.map((item) =>
+          item.id === product.id ? { ...item, qty: item.qty + 1 } : item,
+        );
+      }
+
+      // 🔥 This keeps manufacturer automatically
+      return [...prevCart, { ...product, qty: 1 }];
     });
-
-    let updatedCart = await res.json();
-    if (!Array.isArray(updatedCart)) updatedCart = [];
-    updatedCart = updatedCart.map((item) => ({ ...item, id: item.productId }));
-
-    setCart(updatedCart);
-  };
+  }; // ✅ THIS WAS MISSING
   // REMOVE FROM CART
   const removeFromCart = async (productId) => {
     const res = await fetch("http://localhost:5000/api/remove-from-cart", {
