@@ -8,9 +8,16 @@ import { color } from "framer-motion";
 import axios from "axios";
 import { AppContext } from "../../context/AppContext";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const CheckoutPage = () => {
-  const { cart } = useContext(AppContext);
+  const [Terms, setTerms] = useState(false);
+
+  const handleClick = () => {
+    setTerms(!Terms); // toggle true/false
+  };
+
+  const { cart, removeFromCart } = useContext(AppContext);
 
   const totalPrice =
     cart.reduce((total, item) => {
@@ -40,21 +47,70 @@ const CheckoutPage = () => {
   };
 
   // ✅ SUBMIT
-  const handleSubmit = async () => {
-    const orderData = {
-      ...formData,
-    };
+  // const handleSubmit = async () => {
+  //   const orderData = {
+  //     ...formData,
+  //   };
 
+  //   try {
+  //     await axios.post(
+  //       "http://localhost:5000/api/order/create-order",
+  //       orderData,
+  //     );
+
+  //     toast.success(" Order placed successfully", {
+  //       position: "bottom-right",
+  //       autoClose: 3000,
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+
+  //     toast.error("❌ Error placing order", {
+  //       position: "bottom-right",
+  //       autoClose: 3000,
+  //     });
+  //   }
+  // };
+
+  const handleSubmit = async () => {
     try {
+      const userId = localStorage.getItem("userId");
+
+      const orderData = {
+        userId,
+        ...formData,
+        totalAmount: totalPrice,
+        paymentMethod: "COD", // or "ONLINE" later
+
+        products: cart.map((item) => ({
+          productId: item.id || item._id,
+          productName: item.name,
+          image: item.image,
+          price: item.price,
+          quantity: item.qty,
+          manufacturer: item.manufacturer,
+          ProductName: item.name,
+        })),
+      };
+
+      console.log(orderData);
+
       await axios.post(
         "http://localhost:5000/api/order/create-order",
         orderData,
       );
 
-      alert("✅ Order placed successfully");
+      toast.success("Order placed successfully", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
     } catch (err) {
       console.log(err);
-      alert("❌ Error placing order");
+
+      toast.error("❌ Error placing order", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -209,6 +265,12 @@ const CheckoutPage = () => {
                     <p className="text-xl text-[#b57a4b] font-bold">
                       {item.price}
                     </p>
+                    <button
+                      onClick={() => removeFromCart(item.productId)}
+                      className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-400 hover:cursor-pointer"
+                    >
+                      Remove
+                    </button>
                   </div>
                 </div>
               </div>
@@ -228,6 +290,7 @@ const CheckoutPage = () => {
                         <p className="text-xl text-[#b57a4b] font-bold">
                           {item.price}
                         </p>
+
                         <p className="text-gray-500">Qty: {item.qty}</p>
                       </div>
                     </div>
@@ -255,6 +318,31 @@ const CheckoutPage = () => {
             </span>
           </div>
         </div>
+
+        {/* Term and condition */}
+        <div className="flex items-start gap-2 mt-4">
+          <input type="checkbox" required />
+          <p className="text-gray-600">I am agree to the terms and condition</p>
+          <br></br>
+
+          <p
+            className="text-[#b57a4b] hover:cursor-pointer"
+            onClick={handleClick}
+          >
+            Terms & Condition
+          </p>
+
+          {Terms && (
+            <p className="mt-20 -ml-55 text-[#b57a4b] ">
+              By placing this order, you agree that you will check the product
+              carefully at the time of delivery. No refund or replacement will
+              be provided after delivery. Any damage must be reported
+              immediately at the time of receiving the product. Once the order
+              is confirmed, it cannot be cancelled.
+            </p>
+          )}
+        </div>
+
         <div className="flex">
           <button className="p-4 border-black rounded-lg text-2xl font-bold bg-[#b57a4b] text-white w-45  hover:bg-[#b57a4b] hover:text-white hover:shadow-md hover:scale-[1.02]  hover:cursor-pointer active:scale-95 transition-all duration-200">
             Go To Cart

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import order from "../assets/order1.jpg";
 import { IoCartOutline } from "react-icons/io5";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Seller_OrderContext = () => {
   const [orders, setOrders] = useState([]);
@@ -16,6 +17,12 @@ const Seller_OrderContext = () => {
 
       if (!sellerId) {
         console.log("No seller logged in");
+
+        toast.error("No seller logged in", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+
         return;
       }
 
@@ -26,6 +33,11 @@ const Seller_OrderContext = () => {
       setOrders(res.data.orders);
     } catch (err) {
       console.log(err);
+
+      toast.error("Something went wrong", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
     }
   };
 

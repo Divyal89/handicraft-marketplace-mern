@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -19,6 +20,11 @@ const Orders = () => {
       setOrders(res.data.orders);
     } catch (err) {
       console.log(err);
+
+      toast.error(err.message || "Something went wrong", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -43,6 +49,11 @@ const Orders = () => {
       );
     } catch (err) {
       console.log(err);
+
+      toast.error(err.message || "Something went wrong", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -98,6 +109,9 @@ const Orders = () => {
 
                 <p className="text-sm text-gray-600">
                   Manufacturer: {item.manufacturer || "Not Available"}
+                </p>
+                <p className="text-sm text-gray-600">
+                  ProductName: {item.name || "Not Available"}
                 </p>
               </div>
             ))}

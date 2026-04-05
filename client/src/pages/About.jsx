@@ -2,6 +2,7 @@ import React from "react";
 import artisanImg from "../assets/imgw7.jpg"; // Image of artisans
 import workshopImg from "../assets/imgw12.jpg"; // Image of workshop
 import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
 
 const AboutUs = () => {
   return (
@@ -21,7 +22,7 @@ const AboutUs = () => {
               creations made with love, tradition, and skill.
             </p>
             <button className="bg-[#A8977A] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#8C7B5D] transition">
-              Explore Products
+              <Link to="/buy">Explore Products</Link>
             </button>
           </div>
           <div className="md:w-1/2">

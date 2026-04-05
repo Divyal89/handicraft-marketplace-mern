@@ -269,6 +269,41 @@ router.post("/add-to-cart", async (req, res) => {
   }
 });
 
+// router.post("/add-to-cart", async (req, res) => {
+//   try {
+//     const { userId, product } = req.body;
+
+//     const user = await User.findById(userId);
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     const existing = user.cart.find(
+//       (item) => String(item.id) === String(product.id),
+//     );
+
+//     if (existing) {
+//       existing.qty += 1;
+//     } else {
+//       user.cart.push({
+//         id: product.id,
+//         name: product.name,
+//         price: product.price,
+//         image: product.image,
+//         qty: 1,
+//         manufacturer: product.manufacturer,
+//         sellerId: product.sellerId,
+//       });
+//     }
+
+//     await user.save();
+//     res.json(user.cart);
+//   } catch (error) {
+//     console.log("ADD TO CART ERROR:", error);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// });
+
 /* ================= REMOVE FROM CART ================= */
 router.post("/remove-from-cart", async (req, res) => {
   try {
@@ -287,5 +322,24 @@ router.post("/remove-from-cart", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
+// router.post("/remove-from-cart", async (req, res) => {
+//   try {
+//     const { userId, id } = req.body;
+
+//     const user = await User.findById(userId);
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     user.cart = user.cart.filter((item) => String(item.id) !== String(id));
+
+//     await user.save();
+//     res.json(user.cart);
+//   } catch (error) {
+//     console.log("REMOVE ERROR:", error);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// });
 
 export default router;

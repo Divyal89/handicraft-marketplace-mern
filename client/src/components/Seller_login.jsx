@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Eye, EyeOff, Upload } from "lucide-react";
 import { useNavigate } from "react-router-dom"; // ✅ added
 import bg from "../assets/seller1.jpg";
+import { toast } from "react-toastify";
 
 const SellerAuth = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -59,11 +60,17 @@ const SellerAuth = () => {
           setIsLogin(true); // switch to login
         }
       } else {
-        alert(data.message || "Something went wrong");
+        toast.error(data.message || "Something went wrong", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
       }
     } catch (error) {
       console.log(error);
-      alert("Server error");
+      toast.error("Server error", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
     }
   };
 

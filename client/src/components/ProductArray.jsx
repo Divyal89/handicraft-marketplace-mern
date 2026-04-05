@@ -46,6 +46,8 @@ const ProductArray = [
     image: imgw3,
     category: "Wooden",
     sub_category: "Hand-carved-showpieces",
+    manufacturer: "Alpesh Art",
+    sellerId: "69c93804d38e8ab2adb8f170",
   },
   {
     id: 4,

@@ -1,9 +1,12 @@
 import React, { useContext, useState } from "react";
 import { ArrowLeft, Wallet, Smartphone } from "lucide-react";
 import { AppContext } from "../../context/AppContext";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const PaymentPage = () => {
   const [paymentMethod, setPaymentMethod] = useState("");
+  const navigate = useNavigate();
 
   const { cart, setCart } = useContext(AppContext);
 
@@ -21,7 +24,11 @@ const PaymentPage = () => {
   const handlePlaceOrder = async () => {
     try {
       if (!userId) {
-        alert("Please login first ❌");
+        toast.error("Please login first ❌", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+
         return;
       }
 
@@ -55,10 +62,14 @@ const PaymentPage = () => {
         const data = await res.json();
 
         if (data.success) {
-          alert("Order placed (COD) ✅");
+          navigate("/");
+          toast.success("Order placed (COD) , we will shortly contact you", {
+            position: "bottom-right",
+            autoClose: 3000,
+          });
+
           setCart([]);
         }
-
         return;
       }
 
@@ -133,10 +144,9 @@ const PaymentPage = () => {
             {cart.map((item) => (
               <div key={item.id} className="flex justify-between">
                 <span>
-                  ₹{item.price} × {item.qty}
+                  {item.price} × {item.qty}
                 </span>
                 <span>
-                  ₹
                   {(
                     Number(item.price.toString().replace(/[^0-9]/g, "")) *
                     item.qty

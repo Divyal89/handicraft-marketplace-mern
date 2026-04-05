@@ -1,5 +1,6 @@
 import { Upload } from "lucide-react";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const Seller_Product = () => {
   const [formData, setFormData] = useState({
@@ -23,12 +24,21 @@ const Seller_Product = () => {
     e.preventDefault();
     console.log("Form submitted");
 
+    toast.success("Form submitted successfully!", {
+      position: "bottom-right",
+      autoClose: 3000,
+    });
+
     try {
       const user = JSON.parse(localStorage.getItem("user"));
 
       // ✅ Check user
       if (!user?.id) {
-        alert("User not logged in");
+        toast.error("User not logged in", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+
         return;
       }
 
@@ -65,7 +75,11 @@ const Seller_Product = () => {
       });
     } catch (err) {
       console.log(err);
-      alert("Error saving product");
+
+      toast.error("Error saving product", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
     }
   };
 

@@ -2,10 +2,12 @@ import React, { useContext, useState, useEffect } from "react";
 import * as Tabs from "@radix-ui/react-tabs";
 import { motion } from "framer-motion";
 import { FaUserTie, FaUsers, FaPhoneAlt } from "react-icons/fa";
-import { PiPottedPlantBold } from "react-icons/pi";
+import { FaHome } from "react-icons/fa";
 import { IoMdContact } from "react-icons/io";
 import { FaCartShopping, FaUserPen } from "react-icons/fa6";
 import { Link, useLocation } from "react-router-dom";
+import { GiPorcelainVase } from "react-icons/gi";
+import { IoBagHandleSharp } from "react-icons/io5";
 
 import logo from "../assets/logo.png";
 import name from "../assets/name.png";
@@ -60,17 +62,14 @@ const Navbar = () => {
         {OpenSlider && (
           <div className="fixed h-full w-60 bg-[#3E2F26]">
             <div className="mt-2">
-              <div className="text-[#C6A969] font-extrabold text-2xl ml-8 mt-4">
+              <div className="text-[#3E2F26] font-extrabold text-2xl pl-4 mt-4 bg-[#E6D5B8] rounded-xl mr-19 py-1">
                 Modes
               </div>
-              <div className="text-[#C6A969]">
-                -------------------------------------
-              </div>
 
-              <div className="mt-3 text-xl">
+              <div className="mt-5 text-xl">
                 <Link
                   to="/"
-                  className="flex items-center w-full justify-evenly gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl py-2 font-extrabold"
+                  className="flex items-center w-full justify-evenly gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold"
                 >
                   <FaUsers />
                   Buyer Mode
@@ -80,12 +79,81 @@ const Navbar = () => {
 
                 <Link
                   to="/Seller_home"
-                  className="flex items-center w-full justify-evenly gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl py-2 font-extrabold"
+                  className="flex items-center w-full justify-evenly gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold -mt-4"
                 >
                   <FaUserTie />
                   Seller Mode
                 </Link>
               </div>
+            </div>
+
+            <div className="mt-2">
+              <div className="text-[#3E2F26] font-extrabold text-2xl pl-4 mt-4 bg-[#E6D5B8] rounded-xl mr-19 py-1">
+                Menu
+              </div>
+
+              <div className="mt-5 text-xl">
+                <Link
+                  to="/"
+                  className="flex items-center w-full justify-evenly gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold -ml-5"
+                >
+                  <FaHome />
+                  Home
+                </Link>
+
+                <br />
+
+                <Link
+                  to="/buy"
+                  className="flex items-center w-full justify-evenly gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold -mt-4 -ml-2"
+                >
+                  <GiPorcelainVase />
+                  Products
+                </Link>
+
+                <Link
+                  to="/about_us"
+                  className="flex items-center w-full justify-evenly gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold  -ml-2 mt-2"
+                >
+                  <IoMdContact />
+                  About Us
+                </Link>
+
+                <Link
+                  to="/contact_us"
+                  className="flex items-center w-full justify-evenly gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold -ml-3 mt-2"
+                >
+                  <FaPhoneAlt />
+                  Contact
+                </Link>
+
+                <Link
+                  to="/cart"
+                  className="flex items-center w-full justify-evenly gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold -ml-6 mt-2"
+                >
+                  <FaCartShopping />
+                  Cart
+                </Link>
+
+                <Link
+                  to="/Myorder"
+                  className="flex items-center w-full justify-evenly gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold -ml-2 mt-2"
+                >
+                  <IoBagHandleSharp />
+                  My Order
+                </Link>
+              </div>
+
+              {/* <div className="flex text-[#C6A969] mt-5 pl-8 ">
+                <CgProfile className="mt-2 font-extrabold text-4xl" />
+                <div className="pl-4">
+                  <p className="font-extrabold text-2xl">
+                    {" "}
+                    {user ? user.name : "Guest"}
+                  </p>{" "}
+                  <span>seller</span>
+                </div>
+              </div> */}
             </div>
           </div>
         )}
@@ -97,7 +165,7 @@ const Navbar = () => {
           {/* Home */}
           <Tabs.Trigger value="home" className="relative outline-none">
             <Link to="/" className="flex gap-2 items-center">
-              <PiPottedPlantBold />
+              <FaHome />
               Home
             </Link>
             {activeTab === "home" && (
@@ -111,7 +179,7 @@ const Navbar = () => {
           {/* Product */}
           <Tabs.Trigger value="product" className="relative outline-none">
             <Link to="/buy" className="flex gap-2 items-center">
-              <PiPottedPlantBold />
+              <GiPorcelainVase />
               Product
             </Link>
             {activeTab === "product" && (
@@ -167,7 +235,7 @@ const Navbar = () => {
           {/* My Order */}
           <Tabs.Trigger value="order" className="relative outline-none">
             <Link to="/Myorder" className="flex gap-2 items-center">
-              <FaPhoneAlt />
+              <IoBagHandleSharp />
               My Order
             </Link>
             {activeTab === "order" && (

@@ -61,7 +61,7 @@ const ProductCart = () => {
     (item) => item.sub_category === "Hand-carved-showpieces",
   );
   const woodenProducts = ProductArray.filter(
-    (item) => item.sub_category === "Wooden-toys",
+    (item) => item.sub_catPegory === "Wooden-toys",
   );
 
   // Framer Motion Variants for Staggered animation

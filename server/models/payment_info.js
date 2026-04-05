@@ -18,6 +18,9 @@ const paymentinfoSchema = new mongoose.Schema(
     products: [
       {
         productId: String,
+        productName: String,
+        image: String,
+        price: String,
         quantity: Number,
       },
     ],
