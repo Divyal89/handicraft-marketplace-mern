@@ -52,12 +52,17 @@ const SellerAuth = () => {
       if (response.ok && data.user) {
         localStorage.setItem("user", JSON.stringify(data.user));
 
+        // FINAL FIX
+        localStorage.setItem("sellerId", data.user.id);
+
+        console.log("Saved sellerId:", data.user.id);
+
         if (isLogin) {
           alert("Login successful");
-          navigate("/Seller_home"); // ✅ redirect to home
+          navigate("/Seller_home");
         } else {
           alert("Registration successful");
-          setIsLogin(true); // switch to login
+          setIsLogin(true);
         }
       } else {
         toast.error(data.message || "Something went wrong", {

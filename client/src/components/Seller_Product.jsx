@@ -11,6 +11,7 @@ const Seller_Product = () => {
     description: "",
     notes: "",
     tags: [],
+    contactNumber: "",
   });
 
   const handleChange = (e) => {
@@ -202,6 +203,19 @@ const Seller_Product = () => {
               placeholder="Share the story behind this craft..."
               className="w-full mt-2 border rounded-lg p-3 focus:ring-2 focus:ring-yellow-400 outline-none"
             ></textarea>
+          </div>
+
+          <div className="mb-6">
+            <label className="font-medium text-gray-700">Contact Number</label>
+
+            <input
+              type="text"
+              name="contactNumber"
+              value={formData.contactNumber}
+              onChange={handleChange}
+              placeholder="Enter seller contact number"
+              className="w-full mt-2 border rounded-lg p-3 focus:ring-2 focus:ring-yellow-400 outline-none"
+            />
           </div>
 
           {/* Button */}

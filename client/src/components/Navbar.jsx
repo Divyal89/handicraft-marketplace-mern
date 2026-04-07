@@ -5,7 +5,7 @@ import { FaUserTie, FaUsers, FaPhoneAlt } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
 import { IoMdContact } from "react-icons/io";
 import { FaCartShopping, FaUserPen } from "react-icons/fa6";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { GiPorcelainVase } from "react-icons/gi";
 import { IoBagHandleSharp } from "react-icons/io5";
 
@@ -14,6 +14,7 @@ import name from "../assets/name.png";
 import { AppContext } from "../../context/AppContext";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const { selectedProduct, setSelectedProduct } = useContext(AppContext);
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -56,104 +57,168 @@ const Navbar = () => {
           src={name}
           alt="logo"
           onClick={toggleSlider}
-          className="w-[11vh] ml-6 rounded-lg cursor-pointer transition-all duration-300 ease-in-out hover:border-[#cfa258] hover:shadow-[0_4px_15px_rgba(207,162,88,0.6)] active:scale-95"
+          title="Click to switch mode"
+          className="w-[11vh] ml-6 rounded-xl cursor-pointer border-2 border-transparent transition-all duration-300 ease-in-out hover:scale-105 hover:border-[#cfa258] hover:shadow-[0_6px_20px_rgba(207,162,88,0.7)] active:scale-95 animate-pulse"
         />
 
         {OpenSlider && (
-          <div className="fixed h-full w-60 bg-[#3E2F26]">
-            <div className="mt-2">
-              <div className="text-[#3E2F26] font-extrabold text-2xl pl-4 mt-4 bg-[#E6D5B8] rounded-xl mr-19 py-1">
+          <div className="fixed h-full w-60 bg-[#3E2F26] shadow-2xl border-r border-[#E6D5B8]/20 backdrop-blur-sm  overflow-y-auto pb-10 z-50">
+            <div className="mt-2 px-3">
+              {/* Modes Section */}
+              <div className="text-[#3E2F26] font-extrabold text-2xl pl-4 mt-4 bg-[#E6D5B8] rounded-2xl py-2 shadow-md tracking-wide">
                 Modes
               </div>
 
-              <div className="mt-5 text-xl">
+              <div className="mt-6 text-xl space-y-3">
                 <Link
                   to="/"
-                  className="flex items-center w-full justify-evenly gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold"
+                  className="flex items-center w-full gap-3 px-4 py-3 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold transition-all duration-300 shadow-sm hover:shadow-md hover:translate-x-1"
                 >
-                  <FaUsers />
+                  <FaUsers className="text-lg" />
                   Buyer Mode
                 </Link>
 
-                <br />
-
                 <Link
                   to="/Seller_home"
-                  className="flex items-center w-full justify-evenly gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold -mt-4"
+                  className="flex items-center w-full gap-3 px-4 py-3 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold transition-all duration-300 shadow-sm hover:shadow-md hover:translate-x-1"
                 >
-                  <FaUserTie />
+                  <FaUserTie className="text-lg" />
                   Seller Mode
                 </Link>
-              </div>
-            </div>
 
-            <div className="mt-2">
-              <div className="text-[#3E2F26] font-extrabold text-2xl pl-4 mt-4 bg-[#E6D5B8] rounded-xl mr-19 py-1">
-                Menu
-              </div>
-
-              <div className="mt-5 text-xl">
-                <Link
-                  to="/"
-                  className="flex items-center w-full justify-evenly gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold -ml-5"
+                <button
+                  className="flex items-center w-full gap-3 px-4 py-3 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold transition-all duration-300 shadow-sm hover:shadow-md hover:translate-x-1"
+                  onClick={() => navigate("/admin-login")}
                 >
-                  <FaHome />
-                  Home
-                </Link>
-
-                <br />
-
-                <Link
-                  to="/buy"
-                  className="flex items-center w-full justify-evenly gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold -mt-4 -ml-2"
-                >
-                  <GiPorcelainVase />
-                  Products
-                </Link>
-
-                <Link
-                  to="/about_us"
-                  className="flex items-center w-full justify-evenly gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold  -ml-2 mt-2"
-                >
-                  <IoMdContact />
-                  About Us
-                </Link>
-
-                <Link
-                  to="/contact_us"
-                  className="flex items-center w-full justify-evenly gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold -ml-3 mt-2"
-                >
-                  <FaPhoneAlt />
-                  Contact
-                </Link>
-
-                <Link
-                  to="/cart"
-                  className="flex items-center w-full justify-evenly gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold -ml-6 mt-2"
-                >
-                  <FaCartShopping />
-                  Cart
-                </Link>
-
-                <Link
-                  to="/Myorder"
-                  className="flex items-center w-full justify-evenly gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold -ml-2 mt-2"
-                >
-                  <IoBagHandleSharp />
-                  My Order
-                </Link>
+                  <FaUsers className="text-lg" />
+                  Admin Mode
+                </button>
               </div>
 
-              {/* <div className="flex text-[#C6A969] mt-5 pl-8 ">
-                <CgProfile className="mt-2 font-extrabold text-4xl" />
-                <div className="pl-4">
-                  <p className="font-extrabold text-2xl">
-                    {" "}
-                    {user ? user.name : "Guest"}
-                  </p>{" "}
-                  <span>seller</span>
+              {/* Menu Section */}
+              {/* <div className="mt-8">
+                <div className="text-[#3E2F26] font-extrabold text-2xl pl-4 bg-[#E6D5B8] rounded-2xl py-2 shadow-md tracking-wide">
+                  Menu
+                </div>
+
+                <div className="mt-6 text-xl space-y-3">
+                  <Link
+                    to="/"
+                    className="flex items-center w-full gap-3 px-4 py-3 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold transition-all duration-300 shadow-sm hover:shadow-md hover:translate-x-1"
+                  >
+                    <FaHome className="text-lg" />
+                    Home
+                  </Link>
+
+                  <Link
+                    to="/buy"
+                    className="flex items-center w-full gap-3 px-4 py-3 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold transition-all duration-300 shadow-sm hover:shadow-md hover:translate-x-1"
+                  >
+                    <GiPorcelainVase className="text-lg" />
+                    Products
+                  </Link>
+
+                  <Link
+                    to="/about_us"
+                    className="flex items-center w-full gap-3 px-4 py-3 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold transition-all duration-300 shadow-sm hover:shadow-md hover:translate-x-1"
+                  >
+                    <IoMdContact className="text-lg" />
+                    About Us
+                  </Link>
+
+                  <Link
+                    to="/contact_us"
+                    className="flex items-center w-full gap-3 px-4 py-3 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold transition-all duration-300 shadow-sm hover:shadow-md hover:translate-x-1"
+                  >
+                    <FaPhoneAlt className="text-lg" />
+                    Contact
+                  </Link>
+
+                  <Link
+                    to="/cart"
+                    className="flex items-center w-full gap-3 px-4 py-3 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold transition-all duration-300 shadow-sm hover:shadow-md hover:translate-x-1"
+                  >
+                    <FaCartShopping className="text-lg" />
+                    Cart
+                  </Link>
+
+                  <Link
+                    to="/Myorder"
+                    className="flex items-center w-full gap-3 px-4 py-3 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold transition-all duration-300 shadow-sm hover:shadow-md hover:translate-x-1"
+                  >
+                    <IoBagHandleSharp className="text-lg" />
+                    My Order
+                  </Link>
                 </div>
               </div> */}
+
+              <div className="mt-6 sm:mt-8">
+                <div className="text-[#3E2F26] font-extrabold text-lg sm:text-2xl pl-3 sm:pl-4 bg-[#E6D5B8] rounded-2xl py-2 shadow-md tracking-wide">
+                  Menu
+                </div>
+
+                <div className="mt-4 sm:mt-6 text-base sm:text-xl space-y-2 sm:space-y-3">
+                  <Link
+                    to="/"
+                    className="flex items-center w-full gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-bold sm:font-extrabold transition-all duration-300 shadow-sm hover:shadow-md hover:translate-x-1"
+                  >
+                    <FaHome className="text-base sm:text-lg" />
+                    Home
+                  </Link>
+
+                  <Link
+                    to="/buy"
+                    className="flex items-center w-full gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-bold sm:font-extrabold transition-all duration-300 shadow-sm hover:shadow-md hover:translate-x-1"
+                  >
+                    <GiPorcelainVase className="text-base sm:text-lg" />
+                    Products
+                  </Link>
+
+                  <Link
+                    to="/about_us"
+                    className="flex items-center w-full gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-bold sm:font-extrabold transition-all duration-300 shadow-sm hover:shadow-md hover:translate-x-1"
+                  >
+                    <IoMdContact className="text-base sm:text-lg" />
+                    About Us
+                  </Link>
+
+                  <Link
+                    to="/contact_us"
+                    className="flex items-center w-full gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-bold sm:font-extrabold transition-all duration-300 shadow-sm hover:shadow-md hover:translate-x-1"
+                  >
+                    <FaPhoneAlt className="text-base sm:text-lg" />
+                    Contact
+                  </Link>
+
+                  <Link
+                    to="/cart"
+                    className="flex items-center w-full gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-bold sm:font-extrabold transition-all duration-300 shadow-sm hover:shadow-md hover:translate-x-1"
+                  >
+                    <FaCartShopping className="text-base sm:text-lg" />
+                    Cart
+                  </Link>
+
+                  <Link
+                    to="/Myorder"
+                    className="flex items-center w-full gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-bold sm:font-extrabold transition-all duration-300 shadow-sm hover:shadow-md hover:translate-x-1"
+                  >
+                    <IoBagHandleSharp className="text-base sm:text-lg" />
+                    My Order
+                  </Link>
+                </div>
+              </div>
+              {/* Optional Profile Section */}
+              {/* 
+      <div className="flex text-[#C6A969] mt-8 px-4 py-3 rounded-2xl bg-[#E6D5B8]/10">
+        <CgProfile className="mt-1 font-extrabold text-4xl" />
+        <div className="pl-4">
+          <p className="font-extrabold text-2xl">
+            {user ? user.name : "Guest"}
+          </p>
+          <span>seller</span>
+        </div>
+      </div>
+      */}
             </div>
           </div>
         )}

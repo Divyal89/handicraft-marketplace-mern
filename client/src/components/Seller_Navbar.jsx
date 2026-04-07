@@ -178,18 +178,19 @@
 import React, { useContext, useState, useEffect } from "react";
 import * as Tabs from "@radix-ui/react-tabs";
 import { motion } from "framer-motion";
-import { FaUserTie, FaUsers, FaPhoneAlt } from "react-icons/fa";
+import { FaUserTie, FaUsers, FaPhoneAlt, FaHome } from "react-icons/fa";
 import { PiPottedPlantBold } from "react-icons/pi";
 import { IoMdContact } from "react-icons/io";
 import { FaUserPen } from "react-icons/fa6";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { FaUserShield, FaClipboardList } from "react-icons/fa6";
 import logo from "../assets/logo.png";
 import name from "../assets/name.png";
 
 import { AppContext } from "../../context/AppContext";
 
 const Seller_Navbar = () => {
+  const navigate = useNavigate();
   const { selectedProduct, setSelectedProduct } = useContext(AppContext);
 
   const [activeTab, setActiveTab] = useState("product");
@@ -229,32 +230,79 @@ const Seller_Navbar = () => {
         />
 
         {OpenSlider && (
-          <div className="fixed h-full w-60 bg-[#3E2F26]">
-            <div className="mt-2">
-              <div className="text-[#C6A969] font-extrabold text-2xl ml-8 mt-4">
-                Modes
-              </div>
-              <div className="text-[#C6A969]">
-                -------------------------------------
+          <div className="fixed top-0 left-0 z-50 h-screen w-64 bg-[#3E2F26] overflow-y-auto shadow-2xl border-r border-[#C6A969]/20 pb-10 mt-17">
+            <div className="px-3 py-4">
+              <div className="rounded-2xl bg-[#C6A969]/10 px-4 py-3">
+                <div className="text-[#C6A969] font-extrabold text-2xl tracking-wide">
+                  Modes
+                </div>
+                <div className="mt-1 h-[1px] w-full bg-[#C6A969]/40"></div>
               </div>
 
-              <div className="mt-3 text-xl">
+              <div className="mt-4 flex flex-col gap-2">
                 <Link
                   to="/"
-                  className="flex items-center w-full justify-evenly  gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8]  hover:text-[#3E2F26] rounded-2xl py-2 font-extrabold"
+                  className="flex items-center gap-3 rounded-2xl px-4 py-3 text-[#E6D5B8] font-extrabold text-[17px] transition-all duration-300 hover:bg-[#E6D5B8] hover:text-[#3E2F26] hover:shadow-md"
                 >
-                  <FaUsers />
-                  Buyer Mode
+                  <FaUsers className="text-lg shrink-0" />
+                  <span>Buyer Mode</span>
                 </Link>
-
-                <br />
 
                 <Link
                   to="/Seller_home"
-                  className="flex items-center w-full justify-evenly  gap-2 hover:bg-[#E6D5B8] text-[#E6D5B8]  hover:text-[#3E2F26] rounded-2xl py-2 font-extrabold"
+                  className="flex items-center gap-3 rounded-2xl px-4 py-3 text-[#E6D5B8] font-extrabold text-[17px] transition-all duration-300 hover:bg-[#E6D5B8] hover:text-[#3E2F26] hover:shadow-md"
                 >
-                  <FaUserTie />
-                  Seller Mode
+                  <FaUserTie className="text-lg shrink-0" />
+                  <span>Seller Mode</span>
+                </Link>
+
+                <button
+                  className="flex items-center w-full gap-3 px-4 py-3 hover:bg-[#E6D5B8] text-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl font-extrabold transition-all duration-300 shadow-sm hover:shadow-md hover:translate-x-1"
+                  onClick={() => navigate("/admin-login")}
+                >
+                  <FaUsers className="text-lg" />
+                  Admin Mode
+                </button>
+              </div>
+
+              <div className="mt-6 rounded-2xl bg-[#C6A969]/10 px-4 py-3">
+                <div className="text-[#C6A969] font-extrabold text-2xl tracking-wide">
+                  Menu
+                </div>
+                <div className="mt-1 h-[1px] w-full bg-[#C6A969]/40"></div>
+              </div>
+
+              <div className="mt-4 flex flex-col gap-2">
+                <Link
+                  to="/Seller_home"
+                  className="flex items-center gap-3 rounded-2xl px-4 py-3 text-[#E6D5B8] font-extrabold text-[17px] transition-all duration-300 hover:bg-[#E6D5B8] hover:text-[#3E2F26] hover:shadow-md"
+                >
+                  <FaHome className="text-lg shrink-0" />
+                  <span>Home</span>
+                </Link>
+
+                <Link
+                  to="/Seller_Aboutus"
+                  className="flex items-center gap-3 rounded-2xl px-4 py-3 text-[#E6D5B8] font-extrabold text-[17px] transition-all duration-300 hover:bg-[#E6D5B8] hover:text-[#3E2F26] hover:shadow-md"
+                >
+                  <IoMdContact className="text-lg shrink-0" />
+                  <span>About Us</span>
+                </Link>
+
+                <Link
+                  to="/Seller_Contact"
+                  className="flex items-center gap-3 rounded-2xl px-4 py-3 text-[#E6D5B8] font-extrabold text-[17px] transition-all duration-300 hover:bg-[#E6D5B8] hover:text-[#3E2F26] hover:shadow-md"
+                >
+                  <FaPhoneAlt className="text-lg shrink-0" />
+                  <span>Contact</span>
+                </Link>
+
+                <Link
+                  to="/selleraboutmypro"
+                  className="flex items-center gap-3 rounded-2xl px-4 py-3 text-[#E6D5B8] font-extrabold text-[17px] transition-all duration-300 hover:bg-[#E6D5B8] hover:text-[#3E2F26] hover:shadow-md"
+                >
+                  <FaClipboardList className="text-lg shrink-0" />
+                  <span>Status</span>
                 </Link>
               </div>
             </div>

@@ -22,6 +22,12 @@ import "react-toastify/dist/ReactToastify.css";
 import CheckoutForm from "./pages/Seller_Payment";
 import PaymentPage from "./pages/Payment_Page";
 import Orders from "./pages/MyOrder";
+import AdminDashboard from "./pages/Admin_home";
+import AdminOrder from "./components/Admin_order";
+import AboutMyProduct from "./pages/Seller_aboutMypro";
+
+import AdminLogin from "./pages/AdminLogin";
+import AdminProtectedRoute from "./pages/AdminProtectedRoute";
 
 const App = () => {
   return (
@@ -46,6 +52,20 @@ const App = () => {
         <Route path="/Seller_payment" element={<CheckoutForm />} />
         <Route path="/Payment" element={<PaymentPage />} />
         <Route path="/Myorder" element={<Orders />} />
+        <Route path="/adminhome" element={<AdminDashboard />} />
+
+        <Route path="/selleraboutmypro" element={<AboutMyProduct />} />
+
+        <Route path="/admin-login" element={<AdminLogin />} />
+
+        <Route
+          path="/admin-order"
+          element={
+            <AdminProtectedRoute>
+              <AdminOrder />
+            </AdminProtectedRoute>
+          }
+        />
       </Routes>
     </div>
   );

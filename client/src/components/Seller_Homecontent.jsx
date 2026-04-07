@@ -34,11 +34,11 @@ const Seller_Homecontent = () => {
       {/* Text */}
       <div className="relative z-10 p-11">
         <h1 className=" text-[#E6D5B8] ">
-          <CiViewList
+          {/* <CiViewList
             className="mt-10 font-extrabold text-5xl hover:text-[#C6A969]"
             onClick={() => setDashboard(!Dashboard)}
-          />
-          {Dashboard && (
+          /> */}
+          {/* {Dashboard && (
             <div className="fixed h-full w-70 bg-[#3E2F26] -mt-16 -ml-12">
               <h1
                 className="text-[#C6A969] ml-62 mt-5 hover:cursor-pointer font-extrabold"
@@ -66,6 +66,11 @@ const Seller_Homecontent = () => {
                   <IoCartOutline className="font-extrabold mt-1 " />{" "}
                   <Link to="/Seller_order">Order</Link>
                 </div>
+
+                <div className="flex gap-2 hover:bg-[#E6D5B8] hover:text-[#3E2F26] rounded-2xl py-2">
+                  <IoCartOutline className="font-extrabold mt-1 " />{" "}
+                  <Link to="/selleraboutmypro">Status</Link>
+                </div>
                 <br />
               </div>
               <div className="mt-20">
@@ -83,7 +88,7 @@ const Seller_Homecontent = () => {
                 </div>
               </div>
             </div>
-          )}
+          )} */}
           <div className="font-bold text-7xl mt-30">Welcome, Seller</div>
         </h1>
         <br />

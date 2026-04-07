@@ -342,4 +342,18 @@ router.post("/remove-from-cart", async (req, res) => {
 //   }
 // });
 
+/* ================= Admin Login ================= */
+router.post("/admin-login", async (req, res) => {
+  const { email, password } = req.body;
+
+  if (email === "admin@gmail.com" && password === "admin123") {
+    return res.json({
+      token: "admin-secret-token",
+    });
+  }
+
+  return res.status(401).json({
+    message: "Invalid credentials",
+  });
+});
 export default router;
