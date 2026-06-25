@@ -17,6 +17,7 @@ router.post("/products", async (req, res) => {
       quantity,
       description,
       notes,
+      contactNumber,
       tags,
       sellerId,
     } = req.body;

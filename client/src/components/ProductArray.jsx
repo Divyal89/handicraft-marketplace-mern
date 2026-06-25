@@ -16,6 +16,7 @@ import imgw13 from "../assets/imgw13.jpg";
 import imgw14 from "../assets/imgw14.jpg";
 import imgw15 from "../assets/imgw15.jpg";
 import imgw16 from "../assets/imgw16.jpg";
+import kal1 from "../assets/kal.jpg";
 
 const ProductArray = [
   // ------------------Wooden-------------------
@@ -86,6 +87,22 @@ const ProductArray = [
     name: "Wooden-Hand",
     price: "₹2,199",
     image: imgw8,
+    category: "Wooden",
+    sub_category: "Hand-carved-showpieces",
+  },
+  {
+    id: 9,
+    name: "Wooden-Hand",
+    price: "₹2,199",
+    image: imgw8,
+    category: "Wooden",
+    sub_category: "Hand-carved-showpieces",
+  },
+  {
+    id: 10,
+    name: "Pots",
+    price: "₹2,199",
+    image: kal1,
     category: "Wooden",
     sub_category: "Hand-carved-showpieces",
   },

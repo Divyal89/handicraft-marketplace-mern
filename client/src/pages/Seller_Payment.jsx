@@ -144,7 +144,7 @@ const CheckoutPage = () => {
               onChange={handleChange}
             />
 
-            <div className="flex gap-3">
+            {/* <div className="flex gap-3">
               <span className="px-4 py-3 border rounded-lg bg-gray-100">
                 +91
               </span>
@@ -153,6 +153,24 @@ const CheckoutPage = () => {
                 name="phone"
                 placeholder="10-digit mobile number"
                 className="w-full p-3 border rounded-lg"
+                onChange={handleChange}
+              />
+            </div> */}
+
+            <div className="flex gap-3">
+              <span className="px-4 py-3 border rounded-lg bg-gray-100">
+                +91
+              </span>
+
+              <input
+                type="tel"
+                name="phone"
+                placeholder="10-digit mobile number"
+                className="w-full p-3 border rounded-lg"
+                maxLength="10"
+                pattern="[0-9]{10}"
+                required
+                title="Please enter a valid 10-digit mobile number"
                 onChange={handleChange}
               />
             </div>
@@ -320,7 +338,7 @@ const CheckoutPage = () => {
         </div>
 
         {/* Term and condition */}
-        <div className="flex items-start gap-2 mt-4">
+        {/* <div className="flex items-start gap-2 mt-4">
           <input type="checkbox" required />
           <p className="text-gray-600">I am agree to the terms and condition</p>
           <br></br>
@@ -341,7 +359,7 @@ const CheckoutPage = () => {
               is confirmed, it cannot be cancelled.
             </p>
           )}
-        </div>
+        </div> */}
 
         <div className="flex">
           <button className="p-4 border-black rounded-lg text-2xl font-bold bg-[#b57a4b] text-white w-45  hover:bg-[#b57a4b] hover:text-white hover:shadow-md hover:scale-[1.02]  hover:cursor-pointer active:scale-95 transition-all duration-200">
