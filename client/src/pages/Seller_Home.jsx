@@ -2,7 +2,7 @@ import React from "react";
 
 import Seller_Navbar from "../components/Seller_Navbar";
 import Seller_Homecontext_detail from "../components/Seller_Homecontext_detail";
-import Seller_Homecontent from "../components/seller_Homecontent";
+import Seller_Homecontent from "../components/Seller_Homecontent";
 
 const Seller_Home = () => {
   return (
